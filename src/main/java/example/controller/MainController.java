@@ -2,9 +2,11 @@ package example.controller;
 
 
 import example.dao.BankAccountDAO;
+import example.dao.VsemPoShapkeDAO;
 import example.exception.BankTransactionExeption;
 import example.form.SendMoneyForm;
 import example.model.BankAccountInfo;
+import example.model.VsemPoShapkeModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,18 @@ public class MainController
 {
     @Autowired
     private BankAccountDAO bankAccountDAO;
+
+
+    @Autowired
+    private VsemPoShapkeDAO vsemPoShapkeDAO;
+
+    @RequestMapping (value = "/allShapka", method = RequestMethod.GET)
+    public String showAllShapka (Model model) {
+        List<VsemPoShapkeModel> list = vsemPoShapkeDAO.getVsemPoShapkeList();
+        model.addAttribute("accountInfos", list);
+        return  "allShapka";
+
+    }
 
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
